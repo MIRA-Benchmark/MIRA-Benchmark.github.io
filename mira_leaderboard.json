@@ -1,0 +1,121 @@
+{
+  "leaderboardData": [
+    {
+      "info": {
+        "name": "Human Baseline",
+        "CoT": "-",
+        "type": "human_expert",
+        "size": "-"
+      },
+      "mira": {
+        "overall_d": "95.0",
+        "overall_t": "95.0",
+        "overall_v": "95.0"
+      }
+    },
+    {
+      "info": {
+        "name": "GPT-5",
+        "CoT": "D/T",
+        "type": "proprietary",
+        "size": "-"
+      },
+      "mira": {
+        "overall_d": "16.5",
+        "overall_t": "17.2",
+        "overall_v": "25.9"
+      }
+    },
+    {
+      "info": {
+        "name": "Gemini 2.5 Pro",
+        "CoT": "D/T",
+        "type": "proprietary",
+        "size": "-"
+      },
+      "mira": {
+        "overall_d": "16.9",
+        "overall_t": "13.8",
+        "overall_v": "18.9"
+      }
+    },
+    {
+      "info": {
+        "name": "03",
+        "CoT": "D/T",
+        "type": "proprietary",
+        "size": "-"
+      },
+      "mira": {
+        "overall_d": "16.4",
+        "overall_t": "14.1",
+        "overall_v": "23.4"
+      }
+    },
+    {
+      "info": {
+        "name": "GPT-5-mini",
+        "CoT": "D/T",
+        "type": "proprietary",
+        "size": "-"
+      },
+      "mira": {
+        "overall_d": "13.7",
+        "overall_t": "12.9",
+        "overall_v": "23.2"
+      }
+    },
+    {
+      "info": {
+        "name": "Qwen2.5-VL (72B)",
+        "CoT": "D/T",
+        "type": "open_source_U",
+        "size": "72B"
+      },
+      "mira": {
+        "overall_d": "11.5",
+        "overall_t": "13.0",
+        "overall_v": "18.0"
+      }
+    },
+    {
+      "info": {
+        "name": "GLM 4.5 V (106B)",
+        "CoT": "D/T",
+        "type": "open_source_U",
+        "size": "106B"
+      },
+      "mira": {
+        "overall_d": "13.0",
+        "overall_t": "16.2",
+        "overall_v": "18.0"
+      }
+    },
+    {
+      "info": {
+        "name": "Janus-Pro (7B)",
+        "CoT": "D/T",
+        "type": "open_source_UG",
+        "size": "7B"
+      },
+      "mira": {
+        "overall_d": "6.9",
+        "overall_t": "4.9",
+        "overall_v": "8.9"
+      }
+    },
+    {
+      "info": {
+        "name": "Bagel (7B)",
+        "CoT": "D/T",
+        "type": "open_source_UG",
+        "size": "7B"
+      },
+      "mira": {
+        "overall_d": "7.5",
+        "overall_t": "4.7",
+        "overall_v": "8.8"
+      }
+    }
+  ]
+}
