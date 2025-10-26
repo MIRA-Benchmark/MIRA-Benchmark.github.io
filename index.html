@@ -3,160 +3,238 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="MIRA: A Benchmark for Visual Chain-of-Thought for MLLMs">
-  <meta name="keywords" content="Multimodal Reasoning, Visual Chain-of-Thought, MLLM, Benchmark, Imagination">
+        content="MIRA (Multimodal Imagination for Reasoning Assessment) is a new benchmark for Visual Chain-of-Thought requiring intermediate image generation.">
+  <meta name="keywords" content="MIRA, Visual-CoT, Chain-of-Thought, MLLM, Visual Reasoning">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:url" content="https://mira.github.io/"/>
-  <title> MIRA: A Benchmark for Visual Chain-of-Thought</title>
+  <title>MIRA: A Benchmark for Visual Chain-of-Thought</title>
 
-    <link rel="icon" href="./assets/mira-logo.png">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
 
-    <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-    <link rel="stylesheet" href="./static/css/index.css">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/mira_logo_icon.png">   <link rel="stylesheet" href="./static/css/index_emma.css">   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
-  </head>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="./static/js/index_emma.js"></script>   <script>
+    // 轮播图设置 (同 EMMA)
+    document.addEventListener('DOMContentLoaded', function () {
+      bulmaCarousel.attach('#pdf-carousel', {
+        slidesToScroll: 1,  
+        slidesToShow: 1,    
+        loop: true,         
+        autoplay: true,     
+        autoplaySpeed: 5000 
+      });
+    });
+
+    // MIRA 排行榜数据 (简化示例，实际应从 JS/YAML 文件加载)
+    const miraLeaderboardData = [
+      { name: "GPT-5", size: "-", cot: "✗", d: 16.5, t: 17.2, v: 25.9, category: "proprietary" },
+      { name: "Gemini 2.5 Pro", size: "-", cot: "✗", d: 16.9, t: 13.8, v: 18.9, category: "proprietary" },
+      { name: "03", size: "-", cot: "✗", d: 16.4, t: 14.1, v: 23.4, category: "proprietary" },
+      { name: "Qwen2.5-VL (72B)", size: "72B", cot: "✗", d: 11.5, t: 13.0, v: 18.0, category: "open_source" },
+      { name: "GLM 4.5 V (106B)", size: "106B", cot: "✗", d: 13.0, t: 16.2, v: 18.0, category: "open_source" },
+      { name: "Human Baseline", size: "-", cot: "✓", d: 90.0, t: 90.0, v: 95.0, category: "human_expert" },
+    ];
+    $(document).ready(function() {
+      const tbody = $('#mira-table tbody');
+      miraLeaderboardData.forEach(model => {
+        const row = `<tr class="${model.category}">
+            <td>${model.name}</td>
+            <td>${model.size}</td>
+            <td>${model.cot}</td>
+            <td>${model.d.toFixed(1)}%</td>
+            <td>${model.t.toFixed(1)}%</td>
+            <td>${model.v.toFixed(1)}%</td>
+            <td class="hidden mira-details">--</td>
+            <td class="hidden mira-details">--</td>
+            <td class="hidden mira-details">--</td>
+        </tr>`;
+        tbody.append(row);
+      });
+
+      // 初始化表格排序 (需要 index_emma.js 或类似文件中的排序逻辑)
+      // 假设有一个名为 setupSortableTable 的函数
+      if (typeof setupSortableTable === 'function') {
+        setupSortableTable('mira-table');
+      }
+    });
+  </script>
+
+</head>
 <body>
-
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://mira.github.io/">
-        <span class="icon">
-            <i class="fas fa-home"></i>
-        </span>
-      </a>
-            <a class="navbar-item" href="#benchmark-data">
-        <b>Data</b>
-      </a>
-      <a class="navbar-item" href="#results">
-        <b>Results</b>
-      </a>
-      <a class="navbar-item" href="https://github.com/MIRA-Bench/MIRA">         <b>Code</b>
-      </a>
-      <a class="navbar-item" href="#BibTeX">
-        <b>Citation</b>
-      </a>
-    </div>
-  </div>
-</nav>
-
 
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title is-bold">
-            <span>MIRA: When Visualizing is the First Step to Reasoning</span>
-          </h1>
-          <h2 class="title is-4 publication-subtitle">
-            <span>A Benchmark for Visual Chain-of-Thought</span>
-          </h2>
+
+          <img src="./static/images/mira_logo.png" alt="MIRA Logo" style="max-width: 200px; margin-bottom: 1rem;">           <h1 class="title is-3">MIRA: Multimodal Imagination for Reasoning Assessment</h1>
+          <h2 class="subtitle is-3 publication-subtitle">When Visualizing is the First Step to Reasoning: A Benchmark for Visual Chain-of-Thought</h2>
           
-                    <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="https://yiyangzhou.github.io/">Yiyang Zhou</a>*<sup style="color:#005587;">1,2</sup>,</span>
-            <span class="author-block">
-              Haoqin Tu*<sup style="color:#005587;">1,3</sup>,</span>
-            <span class="author-block">
-              Zijun Wang<sup style="color:#066221;">3</sup>,
-            </span>
-            <span class="author-block">
-              Zeyu Wang<sup style="color:#005587;">1,3</sup>,
-            </span>
-            <span class="author-block">
-              Niklas Muennighoff,
-            </span>
-            <span class="author-block">
-              Fan Nie<sup style="color:#005587;">1</sup>,
-            </span>
-            <span class="author-block">
-              Yejin Choi,
-            </span>
-            <span class="author-block">
-              James Zou<sup style="color:#8C1515;">4</sup>,
-            </span>
-            <span class="author-block">
-              Chaorui Deng<sup style="color:#005587;">1</sup>,
-            </span>
-            <span class="author-block">
-              Shen Yan<sup style="color:#005587;">1</sup>,
-            </span>
-            <span class="author-block">
-              Haoqi Fan<sup style="color:#005587;">1</sup>,
-            </span>
-            <span class="author-block">
-              Cihang Xie<sup style="color:#066221;">3</sup>,
-            </span>
-            <span class="author-block">
-              <a href="huaxiu@cs.unc.edu">Huaxiu Yao</a><sup style="color:#005587">2†</sup>,
-            </span>
-            <span class="author-block">
-              <a href="yeqinghao@bytedance.com">Qinghao Ye</a><sup style="color:#005587">1†</sup>
-            </span>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Yiyang Zhou<sup>1,2</sup>*</span>,
+            <span class="author-block">Haoqin Tu<sup>1,3</sup>*</span>,
+            <span class="author-block">Zijun Wang<sup>3</sup></span>,
+            <span class="author-block">Zeyu Wang<sup>1,3</sup>*</span>,
+            <span class="author-block">Niklas Muennighoff</span>,
+            <span class="author-block">Fan Nie<sup>1</sup></span>,
+            <span class="author-block">Yejin Choi</span>,
+            <span class="author-block">James Zou<sup>4</sup></span>,
+            <span class="author-block">Chaorui Deng<sup>1</sup></span>,
+            <span class="author-block">Shen Yan<sup>1</sup></span>,
+            <span class="author-block">Haoqi Fan<sup>1</sup></span>,
+            <span class="author-block">Cihang Xie<sup>3</sup></span>,
+            <span class="author-block">Huaxiu Yao<sup>2</sup>†</span>,
+            <span class="author-block">Qinghao Ye<sup>1</sup>†</span>
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup style="color:#005587;">1</sup>ByteDance Seed,</span>
-            <span class="author-block"><sup style="color:#005587;">2</sup>UNC-Chapel Hill,</span>
-            <span class="author-block"><sup style="color:#066221;">3</sup>UC Santa Cruz,</span>
-            <span class="author-block"><sup style="color:#8C1515;">4</sup>Stanford University</span><br>
-            <span class="paper-block"><b >* Equal Contribution, † Corresponding Authors</b> </span>
+            <span class="author-block"><sup>1</sup>ByteDance Seed,</span>
+            <span class="author-block"><sup>2</sup>UNC-Chapel Hill,</span>
+            <span class="author-block"><sup>3</sup>UCSC,</span>
+            <span class="author-block"><sup>4</sup>Stanford</span>
+          </div>
+
+          <div class="is-size-6 has-text-centered">
+            <p>*Work done at ByteDance Seed. †Corresponding authors: Qinghao Ye, Huaxiu Yao.</p>
           </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
-                            <span class="link-block">
-                <a href="[PDF Link Here]"
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2507.xxxx"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
                   <span>Paper</span>
                 </a>
               </span>
               <span class="link-block">
-                <a href="[arXiv Link Here]"
+                <a href="https://arxiv.org/abs/2507.xxxx"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
                   <span>arXiv</span>
                 </a>
               </span>
-                            <span class="link-block">
-                <a href="https://github.com/MIRA-Bench/MIRA"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
+              <span class="link-block">
+                <a href="https://github.com/MIRA-Bench/MIRA" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
                   <span>Code & Data</span>
-                  </a>
+                </a>
               </span>
-                            <span class="link-block">
-                <a href="#results"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-list-ol"></i>
-                  </span>
+              <span class="link-block">
+                <a href="#leaderboard" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon has-text-white">🏆</span>
                   <span>Leaderboard</span>
                 </a>
               </span>
             </div>
+          </div>
 
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body has-text-centered">
+      <h2 class="subtitle has-text-centered">      
+        MIRA exposes fundamental challenges in complex reasoning tasks that require **generating intermediate visual images** (Visual-CoT).
+      </h2>
+        <img src="./static/images/MIRA_figure1.png" alt="MIRA vs Other Benchmarks" style="max-width: 100%; height: auto;" id="MIRA_figure">       <h2 class="subtitle has-text-centered">
+        Leading MLLMs perform poorly on MIRA with direct input, underscoring the gap in visual reasoning. [cite: 60]
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">🔔News</h2>
+        <div class="content has-text-justified">
+          <p>  
+            <b> 🚀 [2025-10-26]</b>: MIRA paper released! The benchmark is designed to push MLLMs beyond text-only reasoning. [cite: 22]
+          </p>
+          <p>  
+            <b> 🔥 [2025-10-26]</b>: Experimental results show **Visual-CoT yields an average relative gain of 33.7%** across all models and tasks. [cite: 19]
+          </p>
+          <p>  
+            <b> 🏆 [2025-10-26]</b>: **GPT-5** currently leads the direct input leaderboard, but with only **16.5% accuracy**. [cite: 18, 94]
+          </p>
+        </div>
+
+        <h2 class="title is-3">Abstract: Why Visual-CoT?</h2>
+        <div class="content has-text-justified">
+          <p>
+            We propose **MIRA** (Multimodal Imagination for Reasoning Assessment), a new benchmark designed to evaluate models in scenarios where **generating intermediate visual images is essential** for successful reasoning. [cite: 11]
+          </p>
+          <p>
+            Unlike traditional Chain-of-Thought (CoT) methods that rely solely on text, tasks in MIRA require models to generate and utilize intermediate images such as **sketches, structural diagrams, or path drawings** to guide their reasoning process. [cite: 12] This setup closely mirrors how humans solve complex problems through "**drawing to think**." [cite: 13]
+            MIRA focuses on intrinsically challenging tasks involving **complex structures, spatial relationships, or reasoning steps difficult to express through language alone** (e.g., tracking a die's movement on a board and summing the face-down values after each roll). [cite: 14]
+          </p>
+        </div>
+        <img src="./static/images/MIRA_teaser_comparison.png" alt="MIRA Teaser Comparison" style="width: 100%; max-width: 1000px; margin-top: 20px;"/>       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3" id="leaderboard">Leaderboard: MIRA Overall Results</h2>
+        <div class="leaderboard-description">
+          Accuracy scores across three evaluation protocols: D (Direct), T (Text-CoT), and V (Visual-CoT).
+        </div>        
+        <br>
+        <div class="model-labels-container">
+          <span class="leaderboard-label human_expert">Human Expert</span>
+          <span class="leaderboard-label open_source">Open-Weight (Understanding)</span>
+          <span class="leaderboard-label proprietary">Closed-Source SOTA MLLMs</span>
+        </div>
+        <br>
+
+        <div class="leaderboard-container">
+          <div class="table-wrapper">
+            <table id="mira-table">
+              <thead>
+                <tr>
+                  <th class="sortable clickable" data-sort="string">Model</th>
+                  <th class="clickable" data-sort="string">Size</th>
+                  <th class="sortable clickable" data-sort="string">CoT</th>
+                  <th class="sortable clickable" data-sort="number" style="color:#2a7e78">D (Direct)</th>
+                  <th class="sortable clickable" data-sort="number" style="color:#d1467c">T (Text-CoT)</th>
+                  <th class="sortable clickable" data-sort="number" style="color:#3e7ddc">V (Visual-CoT)</th>
+                                    <th class="hidden mira-details sortable clickable" data-sort="number">EG</th>
+                  <th class="hidden mira-details sortable clickable" data-sort="number">PBR</th>
+                  <th class="hidden mira-details sortable clickable" data-sort="number">ASLP</th>
+                </tr>
+              </thead>
+              <tbody>
+                                                              </tbody>
+            </table>
+            <p class="test-desc">Results are based on **Pass@1** accuracy. The best-performing closed-source model (GPT-5) achieves **16.5%** accuracy with direct input. [cite: 94] The average relative gain from Text-CoT to Visual-CoT is **33.7%**. [cite: 19, 251]</p>
           </div>
         </div>
       </div>
@@ -164,97 +242,217 @@
   </div>
 </section>
 
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h2 class="title is-4">
+      <span class="mira">MIRA Benchmark Overview (546 Problems, 20 Tasks)</span>
+    </h2>
+  </div>
+</section>
 
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="content has-text-centered">
-            <img src="assets/images/MIRA_figure1.png" alt="MIRA Visual CoT Concept" width="90%"/>
-      <p> 
-[cite_start]        MIRA (Multimodal Imagination for Reasoning Assessment) 是一个旨在评估 MLLM **视觉思维链 (Visual-CoT)** 能力的基准测试。它要求模型像人类“画图思考”一样，生成并利用中间视觉图像（如草图、结构图或路径图）来指导复杂推理，尤其针对难以仅用语言表达的空间、结构和时间推理问题 [cite: 14]。
-      </p>
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+        <h3 class="title is-4">Four Challenging Domains</h3>
+        <div class="content has-text-justified">
+          <p>
+            MIRA consists of **546 curated samples** spanning four challenging domains: **Euclidean Geometry (EG)**, **Physics-Based Reasoning (PBR)**, **Abstract Spatial & Logical Puzzles (ASLP)**, and **Causal Transformations (CT)**. [cite: 126]
+            Each instance is meticulously designed to require **complex, multi-step visual reasoning** for a correct solution. [cite: 128]
+          </p>
+          <p>
+            **Evaluation Protocol:** To accurately diagnose model capabilities, we propose a novel three-level diagnostic protocol:
+            <ul>
+              <li>**Level 1: Direct Evaluation (D):** Standard end-to-end task (Image + Question $\rightarrow$ Answer). [cite: 184]</li>
+              <li>**Level 2: Text-CoT Reasoning (T):** Model generates a textual Chain-of-Thought before the final answer. [cite: 186]</li>
+              <li>**Level 3: Simulated Visual-CoT Reasoning (V):** Manually annotated intermediate images are provided as visual clues to guide the model's reasoning. [cite: 188, 189]</li>
+            </ul>
+          </p>
+
+        </div>
+        <img src="./static/images/MIRA_figure3_pie.png" alt="MIRA Task Distribution" style="max-width: 60%; margin-top: 20px;"/>       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Visual-CoT: The Necessity of Imagined Cues</h2>
+        <div class="content has-text-justified">
+          <div class="columns is-centered">
+            <div class="column is-half">
+              <div class="box m-5">
+                <div class="content has-text-centered">
+                  <img src="./static/images/MIRA_gain_chart.png" alt="Visual-CoT Gain" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/>                   <p>Visual-CoT consistently improves performance across models, demonstrating its critical role. The average relative gain is **33.7%**, with **Physics tasks nearly doubling** their accuracy. [cite: 19, 97, 252]</p>
+                </div>
+            </div>
+            </div>
+
+            <div class="column is-half">
+              <div class="box m-5">
+                <div class="content has-text-centered">
+                  <img src="./static/images/MIRA_pass_k.png" alt="Pass@k/Majority Voting" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/>                   <p>Broadening the search space (Pass@k and Majority Voting) yields only **limited improvements**, especially for stronger models, suggesting a **fundamental lack of core reasoning capability** on MIRA, not just accidental errors. [cite: 295, 298]</p>
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 
 <section class="section">
-  <div class="container" id="challenge-and-results" style="margin-bottom: 2vh;">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">The Visual Reasoning Challenge</h2>
-        <div class="content has-text-justified">
-[cite_start]          传统的思维链（CoT）方法完全依赖文本 [cite: 12][cite_start]，这在处理本质上需要**空间推理、几何操作或物理模拟**的真实世界问题时，显得笨拙且信息有损 [cite: 66, 67]。MIRA 的核心任务要求模型推断出中间视觉状态（例如，追踪骰子的连续滚动），而这正是现有 MLLMs 的主要盲点。
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Representative Examples</h2>
+    <p class="has-text-centered">MIRA tasks often involve multi-step geometric, spatial, or temporal tracking, where intermediate diagrams are indispensable.</p>
+
+    <div id="pdf-carousel" class="carousel results-carousel">
+      
+            <div class="box case-box">
+        <div class="content has-text-centered">
+          <a href="./static/images/Rolling_Dice_Top.png" data-lightbox="mira-cases" data-title="Rolling Dice: Top (CT)">
+            <img src="./static/images/Rolling_Dice_Top.png" alt="Rolling Dice: Top" class="case-image"/>
+          </a>
+          <p>Causal Transformation: Rolling Dice (Tracking State Changes)</p>
         </div>
-        <p align="center" id="results">
-                    <img src="assets/images/MIRA_results.png" width="90%"> <br>
-          <b>图 3: MIRA 结果摘要 (Direct Input vs. Visual CoT Gains)</b><br>
-[cite_start]          领先 MLLMs 在直接输入下性能显著下降 (无模型超过 20%) [cite: 94]。
-      </p>
-        <div class="content has-text-justified">
-[cite_start]          实验结果表明，包括最强闭源模型（如 GPT-5, Gemini 2.5 Pro）在内的现有 MLLMs 在**仅依靠文本提示**时表现很差 [cite: 18][cite_start]。然而，当提供中间视觉线索（Visual-CoT）时，模型的性能**平均相对提升了 33.7%** [cite: 19, 357][cite_start]。这强调了想象或利用视觉信息对于成功完成 MIRA 基准测试中的推理任务至关重要 [cite: 21]。
+      </div>
+
+            <div class="box case-box">
+        <div class="content has-text-centered">
+          <a href="./static/images/Convex_Hull.png" data-lightbox="mira-cases" data-title="Convex Hull (EG)">
+            <img src="./static/images/Convex_Hull.png" alt="Convex Hull" class="case-image"/>
+          </a>
+          <p>Euclidean Geometry: Convex Hull (Drawing to Define Area)</p>
+        </div>
+      </div>
+
+            <div class="box case-box">
+        <div class="content has-text-centered">
+          <a href="./static/images/Billiards.png" data-lightbox="mira-cases" data-title="Billiards (PBR)">
+            <img src="./static/images/Billiards.png" alt="Billiards" class="case-image"/>
+          </a>
+          <p>Physics-Based Reasoning: Billiards (Mirroring Path Drawing)</p>
+        </div>
+      </div>
+      
+            <div class="box case-box">
+        <div class="content has-text-centered">
+          <a href="./static/images/Cubes_Missing.png" data-lightbox="mira-cases" data-title="Cubes Missing (EG)">
+            <img src="./static/images/Cubes_Missing.png" alt="Cubes Missing" class="case-image"/>
+          </a>
+          <p>Euclidean Geometry: Cubes Missing (3D Volume Visualization)</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section id="interactive-module" class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered mb-5">Case Study: The Limits of Text-Only CoT</h2>
+    
+    <div class="columns is-variable is-8 height-sync">
+      
+      <div class="column is-half left-stack">
+                <div class="box question-area">
+          <p class="subtitle is-6 has-text-centered mb-2">Input Image & Visual-CoT Solution</p>
+          <figure class="question-figure">
+                        <img id="questionImage" src="./static/images/GPT5_CaseStudy_Input_VisualCoT.png" alt="Convex Hull Input and Visual CoT Image">
+          </figure>
+          <div id="questionText" class="question-text content">
+            <p><strong>Task: Convex Hull (EG)</strong></p>
+            <p><strong>Question:</strong> Given 10 blue points, they form a blue convex hull. Given 10 green points, they form a green convex hull. How many red points fall in the overlapping portion of the blue and green convex hulls? Answer with only one digit. [cite: 312, 313, 314, 315]</p>
+            <p>When provided with the **Visual-CoT Image** (right), GPT-5 successfully identifies the overlapping region and counts the correct answer: 4. [cite: 343, 352]</p>
+          </div>
+        </div>
+      </div>
+
+            <div class="column is-half right-stretch">
+        <div class="box model-output-box">
+          <p class="subtitle is-6 has-text-centered mb-3">GPT-5's Reasoning Based on Plain Text (Fails)</p>
+          <pre id="modelContent" class="content">
+(1) Locate the blue points (10 of them) and **imagine [for sketch] the convex hull** that encloses all of them. ... [long textual description of coordinates and boundaries] ... This hull therefore spans an X-range of 0.10-0.66 and a Y-range of 0.03-0.95 with its right edge slanting up...
+(2) Locate the green points (10 of them) and **imagine their convex hull**. ... Hence, the green hull almost covers the entire square...
+(3) The overlap (intersection) of the two hulls is therefore the part of the blue hull that is also inside the green hull...
+(4) Check each red point (20 of them) against that overlapping zone. ... After inspection, the following seven red points lie inside that edge (and are also within the green hull)...
+(5) Thus, **7** red points fall inside the region common to both the blue and green convex hulls.
+&lt;answer&gt;7&lt;/answer&gt; ❌ 
+              
+**Failure:** Purely textual reasoning fails to accurately delineate the overlapping geometric region, resorting to words like "imagine" and producing a vague, unreliable logic that results in the incorrect answer of 7. [cite: 349, 350, 327]
+</pre>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<section class="section" id="benchmark-data">
-  <div class="container" style="margin-bottom: 2vh;">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Benchmark Data and Protocol</h2>
-        <div class="content has-text-justified">
-[cite_start]          MIRA 包含 <b>546 个精心策划的多模态问题</b>，跨越 20 种独特的任务类型，所有问题均标注了中间视觉图像和最终答案 [cite: 15, 76]。
-        </div>
-        
-        <h4 class="title is-4">四大挑战领域 (Four Domains)</h4>
-        <div class="content has-text-justified">
-          <ul style="list-style-type: disc; margin-left: 20px;">
-            <li><b>Euclidean Geometry (EG):</b> 涉及空间布局和几何构造（如 Convex Hull, Mirror Pattern）。</li>
-            <li><b>Physics-Based Reasoning (PBR):</b> 涉及物理模拟和计算（如 Billiards, Electric Charge）。</li>
-            <li><b>Abstract Spatial & Logical Puzzles (ASLP):</b> 复杂的抽象空间和逻辑推理（如 Unfolded Cube, Trailer Cubes）。</li>
-            <li><b>Causal Transformations (CT):</b> 涉及跨时间状态追踪和因果链（如 Rolling Dice, Gear Rotation）。</li>
-          </ul>
-        </div>
-
-        <h4 class="title is-4">三级诊断评估协议 (Three-Level Diagnostic Protocol)</h4>
-        <div class="content has-text-justified">
-[cite_start]          MIRA 提出了一种统一的评估协议，涵盖三种评估输入级别，旨在隔离和分析模型能力 [cite: 16, 183]：
-          <ol style="margin-left: 20px;">
-[cite_start]            <li><b>Direct Evaluation (D):</b> 仅提供图像和问题 [cite: 184]。</li>
-[cite_start]            <li><b>Text-CoT Reasoning (T):</b> 鼓励模型生成文本思维链 [cite: 186]。</li>
-[cite_start]            <li><b>Simulated Visual-CoT Reasoning (V):</b> 提供人工标注的中间图像作为视觉线索，以探究模型利用视觉信息的能力上限 [cite: 188, 189]。</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
-    <h2 class="title is-3 has-text-centered">Citation</h2>
+    <h2 class="title">BibTeX</h2>
+    <div class="box" style="position: relative; margin-top: 2.5rem;">
 
-    <pre><code>@article{zhou2025mira,
-      title={When Visualizing is the First Step to Reasoning: MIRA, a Benchmark for Visual Chain-of-Thought},
-      author={Zhou, Yiyang and Tu, Haoqin and Wang, Zijun and Wang, Zeyu and Muennighoff, Niklas and Nie, Fan and Choi, Yejin and Zou, James and Deng, Chaorui and Yan, Shen and Fan, Haoqi and Xie, Cihang and Yao, Huaxiu and Ye, Qinghao},
-      journal={arXiv preprint arXiv:25XX.XXXXX},
-      year={2025},
-      url={https://mira.github.io/}
-    }</code></pre>
+      <button
+        id="copyBibtexBtn"
+        class="button is-normal is-info is-rounded"
+        aria-label="Copy BibTeX"
+        style="position: absolute; top: 0.5rem; right: 0.5rem;"
+      >
+        <span class="icon"><i class="fas fa-copy"></i></span>
+      </button>
+
+      <pre style="overflow-x: auto;"><code id="bibtexCode">@article{zhou2025mira,
+  title={When Visualizing is the First Step to Reasoning: MIRA, a Benchmark for Visual Chain-of-Thought},
+  author={Zhou, Yiyang and Tu, Haoqin and Wang, Zijun and Wang, Zeyu and Muennighoff, Niklas and Nie, Fan and Choi, Yejin and Zou, James and Deng, Chaorui and Yan, Shen and Fan, Haoqi and Xie, Cihang and Yao, Huaxiu and Ye, Qinghao},
+  journal={arXiv preprint arXiv:2510.xxxx},
+  year={2025},
+  url={https://mira.github.io/}
+}</code></pre>
+
+    </div>
   </div>
 </section>
 
+<script>
+  document.getElementById('copyBibtexBtn').addEventListener('click', async () => {
+    const code = document.getElementById('bibtexCode').innerText.trim();
+    try {
+      await navigator.clipboard.writeText(code);
+      alert('BibTeX copied to clipboard!');
+    } catch (err) {
+      console.error('Copy failed', err);
+      alert('Copy failed, please copy manually.');
+    }
+  });
+</script>
+
+<div id="visitor-map" style="width: 300px; height: 300px; overflow: hidden; margin: 0 auto;">
+    <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=a&t=tt&d=a1QOM1qrYlJkVcSpw9uGto-GDGARlIwpS5LWLZjHCE8'></script>
+</div>
+
+
 <footer class="footer">
-    <div class="content has-text-centered">
-      <p><b>Correspondence:</b> Qinghao Ye at yeqinghao@bytedance.com, Huaxiu Yao at huaxiu@cs.unc.edu</p>
-      <p>
-        This website template is adapted from <a href="https://nerfies.github.io/">Nerfies</a> and <a href="https://mathvista.github.io/">MathVista</a>, licensed under a <a rel="license"
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Project Page maintained by Qinghao Ye (<a href="mailto:yeqinghao@bytedance.com">yeqinghao@bytedance.com</a>) and Huaxiu Yao (<a href="mailto:huaxiu@cs.unc.edu">huaxiu@cs.unc.edu</a>). [cite: 23]
+          </p>
+          <p>
+            The website template is licensed under a <a rel="license"
                                                 href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-        Commons Attribution-ShareAlike 4.0 International License</a>.
-      </p>
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
     </div>
+  </div>
 </footer>
 
 </body>
