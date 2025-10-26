@@ -25,11 +25,14 @@
   <script src="./static/js/explorer-index.js"></script>
   <style>
 .publication-authors {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, auto)); /* 每行最多4人，自动换行 */
-  justify-content: center;
-  gap: 0.3em 1.2em; /* 控制间距 */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;   /* ⬅ 居中关键 */
+  align-items: center;
+  gap: 0.3em 1em;            /* 行列间距 */
   text-align: center;
+  max-width: 900px;          /* 控制最大宽度 */
+  margin: 0 auto;            /* ⬅ 整块居中 */
 }
 
 .author-block {
@@ -40,6 +43,19 @@
 .paper-block {
   display: inline-block;
   margin-top: 0.5em;
+  text-align: center;
+}
+
+/* 🔵 蓝色风格 */
+.publication-authors a {
+  color: #3B82F6; /* 浅蓝 */
+  text-decoration: none;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.publication-authors a:hover {
+  color: #1E40AF; /* 深蓝 */
+  text-decoration: underline;
 }
 </style>
 
