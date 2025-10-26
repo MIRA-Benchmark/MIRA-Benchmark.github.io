@@ -277,23 +277,20 @@
                     <span style="font-family: Arial, sans-serif;">&#xf0ac;</span> </a>
                 </div>
         </div>
-        <div style="font-size: 14px;">
+<div style="font-size: 14px;">
     <span style="margin-right: 20px;">
         <a href="#" id="share-link" style="color: #ffffff; text-decoration: none;">
             <i class="fa-solid fa-link" style="margin-right: 5px;"></i> Share Site
         </a>
     </span>
-    <p style="margin: 0;">© 2025 MIRA Benchmark. All rights reserved.</p>
+    <p style="margin: 0; color: #888888;">© 2025 MIRA Benchmark. All rights reserved.</p>
 </div>
-
 <script>
 document.getElementById("share-link").addEventListener("click", function(e) {
-    e.preventDefault(); // 阻止默认跳转
-    const url = "https://mira.github.io/"; // 要复制的链接
+    e.preventDefault();
+    const url = "https://mira-benchmark.github.io/";
     navigator.clipboard.writeText(url).then(() => {
-        alert("Link copied to clipboard!"); // 弹出提示
-    }).catch(err => {
-        console.error("Failed to copy: ", err);
+        alert("Link copied to clipboard!");
     });
 });
 </script>
