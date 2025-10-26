@@ -26,12 +26,16 @@
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/mira_logo_icon.png">   <link rel="stylesheet" href="./static/css/index_emma.css">   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="icon" href="./static/images/mira_logo_icon.png">   <link rel="stylesheet" href="./static/css/index_emma.css">   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
-  <script src="./static/js/index_emma.js"></script>   <script>
+  <script src="./static/js/index_emma.js"></script>
+  
+  <script src="./static/js/mira_leaderboard.js"></script>
+  
+  <script>
     // 轮播图设置 (同 EMMA)
     document.addEventListener('DOMContentLoaded', function () {
       bulmaCarousel.attach('#pdf-carousel', {
@@ -41,39 +45,6 @@
         autoplay: true,     
         autoplaySpeed: 5000 
       });
-    });
-
-    // MIRA 排行榜数据 (简化示例，实际应从 JS/YAML 文件加载)
-    const miraLeaderboardData = [
-      { name: "GPT-5", size: "-", cot: "✗", d: 16.5, t: 17.2, v: 25.9, category: "proprietary" },
-      { name: "Gemini 2.5 Pro", size: "-", cot: "✗", d: 16.9, t: 13.8, v: 18.9, category: "proprietary" },
-      { name: "03", size: "-", cot: "✗", d: 16.4, t: 14.1, v: 23.4, category: "proprietary" },
-      { name: "Qwen2.5-VL (72B)", size: "72B", cot: "✗", d: 11.5, t: 13.0, v: 18.0, category: "open_source" },
-      { name: "GLM 4.5 V (106B)", size: "106B", cot: "✗", d: 13.0, t: 16.2, v: 18.0, category: "open_source" },
-      { name: "Human Baseline", size: "-", cot: "✓", d: 90.0, t: 90.0, v: 95.0, category: "human_expert" },
-    ];
-    $(document).ready(function() {
-      const tbody = $('#mira-table tbody');
-      miraLeaderboardData.forEach(model => {
-        const row = `<tr class="${model.category}">
-            <td>${model.name}</td>
-            <td>${model.size}</td>
-            <td>${model.cot}</td>
-            <td>${model.d.toFixed(1)}%</td>
-            <td>${model.t.toFixed(1)}%</td>
-            <td>${model.v.toFixed(1)}%</td>
-            <td class="hidden mira-details">--</td>
-            <td class="hidden mira-details">--</td>
-            <td class="hidden mira-details">--</td>
-        </tr>`;
-        tbody.append(row);
-      });
-
-      // 初始化表格排序 (需要 index_emma.js 或类似文件中的排序逻辑)
-      // 假设有一个名为 setupSortableTable 的函数
-      if (typeof setupSortableTable === 'function') {
-        setupSortableTable('mira-table');
-      }
     });
   </script>
 
@@ -86,9 +57,9 @@
       <div class="columns is-centered">
         <div class="column has-text-centered">
 
-          <img src="./static/images/mira_logo.png" alt="MIRA Logo" style="max-width: 200px; margin-bottom: 1rem;">           <h1 class="title is-3">MIRA: Multimodal Imagination for Reasoning Assessment</h1>
+          <img src="./static/images/mira_logo.png" alt="MIRA Logo" style="max-width: 200px; margin-bottom: 1rem;">           <h1 class="title is-3">MIRA: Multimodal Imagination for Reasoning Assessment</h1>
           <h2 class="subtitle is-3 publication-subtitle">When Visualizing is the First Step to Reasoning: A Benchmark for Visual Chain-of-Thought</h2>
-          
+          
           <div class="is-size-5 publication-authors">
             <span class="author-block">Yiyang Zhou<sup>1,2</sup>*</span>,
             <span class="author-block">Haoqin Tu<sup>1,3</sup>*</span>,
@@ -114,7 +85,7 @@
           </div>
 
           <div class="is-size-6 has-text-centered">
-            <p>*Work done at ByteDance Seed. †Corresponding authors: Qinghao Ye, Huaxiu Yao.</p>
+            <p>*Work done at ByteDance Seed. [cite_start]†Corresponding authors: Qinghao Ye, Huaxiu Yao. [cite: 8, 9, 23]</p>
           </div>
 
           <div class="column has-text-centered">
@@ -160,11 +131,11 @@
       <h2 class="subtitle has-text-centered">      
         MIRA exposes fundamental challenges in complex reasoning tasks that require **generating intermediate visual images** (Visual-CoT).
       </h2>
-        <img src="./static/images/MIRA_figure1.png" alt="MIRA vs Other Benchmarks" style="max-width: 100%; height: auto;" id="MIRA_figure">       <h2 class="subtitle has-text-centered">
-        Leading MLLMs perform poorly on MIRA with direct input, underscoring the gap in visual reasoning. [cite: 60]
+        <img src="./static/images/MIRA_figure1.png" alt="MIRA vs Other Benchmarks" style="max-width: 100%; height: auto;" id="MIRA_figure">       <h2 class="subtitle has-text-centered">
+[cite_start]        Leading MLLMs perform poorly on MIRA with direct input, underscoring the gap in visual reasoning. [cite: 60]
       </h2>
     </div>
-  </div>
+        </div>
 </section>
 
 <section class="section">
@@ -174,27 +145,27 @@
         <h2 class="title is-3">🔔News</h2>
         <div class="content has-text-justified">
           <p>  
-            <b> 🚀 [2025-10-26]</b>: MIRA paper released! The benchmark is designed to push MLLMs beyond text-only reasoning. [cite: 22]
+            <b> 🚀 [2025-10-26]</b>: MIRA paper released! [cite_start]The benchmark is designed to push MLLMs beyond text-only reasoning. [cite: 22]
           </p>
           <p>  
-            <b> 🔥 [2025-10-26]</b>: Experimental results show **Visual-CoT yields an average relative gain of 33.7%** across all models and tasks. [cite: 19]
+[cite_start]            <b> 🔥 [2025-10-26]</b>: Experimental results show **Visual-CoT yields an average relative gain of 33.7%** across all models and tasks. [cite: 19]
           </p>
           <p>  
-            <b> 🏆 [2025-10-26]</b>: **GPT-5** currently leads the direct input leaderboard, but with only **16.5% accuracy**. [cite: 18, 94]
+[cite_start]            <b> 🏆 [2025-10-26]</b>: **GPT-5** currently leads the direct input leaderboard, but with only **16.5% accuracy**. [cite: 18, 94]
           </p>
         </div>
 
         <h2 class="title is-3">Abstract: Why Visual-CoT?</h2>
         <div class="content has-text-justified">
           <p>
-            We propose **MIRA** (Multimodal Imagination for Reasoning Assessment), a new benchmark designed to evaluate models in scenarios where **generating intermediate visual images is essential** for successful reasoning. [cite: 11]
+[cite_start]            We propose **MIRA** (Multimodal Imagination for Reasoning Assessment), a new benchmark designed to evaluate models in scenarios where **generating intermediate visual images is essential** for successful reasoning. [cite: 11]
           </p>
           <p>
-            Unlike traditional Chain-of-Thought (CoT) methods that rely solely on text, tasks in MIRA require models to generate and utilize intermediate images such as **sketches, structural diagrams, or path drawings** to guide their reasoning process. [cite: 12] This setup closely mirrors how humans solve complex problems through "**drawing to think**." [cite: 13]
-            MIRA focuses on intrinsically challenging tasks involving **complex structures, spatial relationships, or reasoning steps difficult to express through language alone** (e.g., tracking a die's movement on a board and summing the face-down values after each roll). [cite: 14]
+[cite_start]            Unlike traditional Chain-of-Thought (CoT) methods that rely solely on text, tasks in MIRA require models to generate and utilize intermediate images such as **sketches, structural diagrams, or path drawings** to guide their reasoning process. [cite: 12] [cite_start]This setup closely mirrors how humans solve complex problems through "**drawing to think**." [cite: 13]
+            [cite_start]MIRA focuses on intrinsically challenging tasks involving **complex structures, spatial relationships, or reasoning steps difficult to express through language alone** (e.g., tracking a die's movement on a board and summing the face-down values after each roll). [cite: 14]
           </p>
         </div>
-        <img src="./static/images/MIRA_teaser_comparison.png" alt="MIRA Teaser Comparison" style="width: 100%; max-width: 1000px; margin-top: 20px;"/>       </div>
+        <img src="./static/images/MIRA_teaser_comparison.png" alt="MIRA Teaser Comparison" style="width: 100%; max-width: 1000px; margin-top: 20px;"/>       </div>
     </div>
   </div>
 </section>
@@ -210,7 +181,7 @@
         <br>
         <div class="model-labels-container">
           <span class="leaderboard-label human_expert">Human Expert</span>
-          <span class="leaderboard-label open_source">Open-Weight (Understanding)</span>
+          <span class="leaderboard-label open_source">Open-Weight</span>
           <span class="leaderboard-label proprietary">Closed-Source SOTA MLLMs</span>
         </div>
         <br>
@@ -220,21 +191,22 @@
             <table id="mira-table">
               <thead>
                 <tr>
+                                    <th colspan="3" class="reset-cell" style="text-align: center;">Model Info</th>
+                  <th colspan="3" class="mira-overall-header" style="text-align: center;">MIRA Overall (Pass@1)</th>
+                </tr>
+                <tr>
                   <th class="sortable clickable" data-sort="string">Model</th>
                   <th class="clickable" data-sort="string">Size</th>
-                  <th class="sortable clickable" data-sort="string">CoT</th>
+                  <th class="sortable clickable" data-sort="string">Input Type</th>
                   <th class="sortable clickable" data-sort="number" style="color:#2a7e78">D (Direct)</th>
                   <th class="sortable clickable" data-sort="number" style="color:#d1467c">T (Text-CoT)</th>
                   <th class="sortable clickable" data-sort="number" style="color:#3e7ddc">V (Visual-CoT)</th>
-                                    <th class="hidden mira-details sortable clickable" data-sort="number">EG</th>
-                  <th class="hidden mira-details sortable clickable" data-sort="number">PBR</th>
-                  <th class="hidden mira-details sortable clickable" data-sort="number">ASLP</th>
                 </tr>
               </thead>
               <tbody>
-                                                              </tbody>
+                              </tbody>
             </table>
-            <p class="test-desc">Results are based on **Pass@1** accuracy. The best-performing closed-source model (GPT-5) achieves **16.5%** accuracy with direct input. [cite: 94] The average relative gain from Text-CoT to Visual-CoT is **33.7%**. [cite: 19, 251]</p>
+            <p class="test-desc">Results are based on **Pass@1** accuracy. [cite_start]The best-performing closed-source model (GPT-5) achieves **16.5%** accuracy with direct input. [cite: 94] [cite_start]The average relative gain from Text-CoT to Visual-CoT is **33.7%**. [cite: 19, 251]</p>
           </div>
         </div>
       </div>
@@ -257,22 +229,22 @@
         <h3 class="title is-4">Four Challenging Domains</h3>
         <div class="content has-text-justified">
           <p>
-            MIRA consists of **546 curated samples** spanning four challenging domains: **Euclidean Geometry (EG)**, **Physics-Based Reasoning (PBR)**, **Abstract Spatial & Logical Puzzles (ASLP)**, and **Causal Transformations (CT)**. [cite: 126]
-            Each instance is meticulously designed to require **complex, multi-step visual reasoning** for a correct solution. [cite: 128]
+[cite_start]            MIRA consists of **546 curated samples** spanning four challenging domains: **Euclidean Geometry (EG)**, **Physics-Based Reasoning (PBR)**, **Abstract Spatial & Logical Puzzles (ASLP)**, and **Causal Transformations (CT)**. [cite: 126]
+            [cite_start]Each instance is meticulously designed to require **complex, multi-step visual reasoning** for a correct solution. [cite: 128]
           </p>
           <p>
             **Evaluation Protocol:** To accurately diagnose model capabilities, we propose a novel three-level diagnostic protocol:
             <ul>
-              <li>**Level 1: Direct Evaluation (D):** Standard end-to-end task (Image + Question $\rightarrow$ Answer). [cite: 184]</li>
-              <li>**Level 2: Text-CoT Reasoning (T):** Model generates a textual Chain-of-Thought before the final answer. [cite: 186]</li>
-              <li>**Level 3: Simulated Visual-CoT Reasoning (V):** Manually annotated intermediate images are provided as visual clues to guide the model's reasoning. [cite: 188, 189]</li>
+[cite_start]              <li>**Level 1: Direct Evaluation (D):** Standard end-to-end task (Image + Question $\rightarrow$ Answer). [cite: 184]</li>
+[cite_start]              <li>**Level 2: Text-CoT Reasoning (T):** Model generates a textual Chain-of-Thought before the final answer. [cite: 186]</li>
+[cite_start]              <li>**Level 3: Simulated Visual-CoT Reasoning (V):** Manually annotated intermediate images are provided as visual clues to guide the model's reasoning. [cite: 188, 189]</li>
             </ul>
           </p>
 
         </div>
-        <img src="./static/images/MIRA_figure3_pie.png" alt="MIRA Task Distribution" style="max-width: 60%; margin-top: 20px;"/>       </div>
-    </div>
-  </div>
+        <img src="./static/images/MIRA_figure3_pie.png" alt="MIRA Task Distribution" style="max-width: 60%; margin-top: 20px;"/>       </div>
+            </div>
+          </div>
 </section>
 
 <section class="section">
@@ -285,7 +257,7 @@
             <div class="column is-half">
               <div class="box m-5">
                 <div class="content has-text-centered">
-                  <img src="./static/images/MIRA_gain_chart.png" alt="Visual-CoT Gain" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/>                   <p>Visual-CoT consistently improves performance across models, demonstrating its critical role. The average relative gain is **33.7%**, with **Physics tasks nearly doubling** their accuracy. [cite: 19, 97, 252]</p>
+                  <img src="./static/images/MIRA_gain_chart.png" alt="Visual-CoT Gain" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/>                   <p>Visual-CoT consistently improves performance across models, demonstrating its critical role. [cite_start]The average relative gain is **33.7%**, with **Physics tasks nearly doubling** their accuracy. [cite: 19, 97, 252]</p>
                 </div>
             </div>
             </div>
@@ -293,7 +265,7 @@
             <div class="column is-half">
               <div class="box m-5">
                 <div class="content has-text-centered">
-                  <img src="./static/images/MIRA_pass_k.png" alt="Pass@k/Majority Voting" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/>                   <p>Broadening the search space (Pass@k and Majority Voting) yields only **limited improvements**, especially for stronger models, suggesting a **fundamental lack of core reasoning capability** on MIRA, not just accidental errors. [cite: 295, 298]</p>
+[cite_start]                  <img src="./static/images/MIRA_pass_k.png" alt="Pass@k/Majority Voting" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"/>                   <p>Broadening the search space (Pass@k and Majority Voting) yields only **limited improvements**, especially for stronger models, suggesting a **fundamental lack of core reasoning capability** on MIRA, not just accidental errors. [cite: 295, 298]</p>
                 </div>
             </div>
             </div>
@@ -338,7 +310,7 @@
           <p>Physics-Based Reasoning: Billiards (Mirroring Path Drawing)</p>
         </div>
       </div>
-      
+      
             <div class="box case-box">
         <div class="content has-text-centered">
           <a href="./static/images/Cubes_Missing.png" data-lightbox="mira-cases" data-title="Cubes Missing (EG)">
@@ -356,9 +328,9 @@
 <section id="interactive-module" class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered mb-5">Case Study: The Limits of Text-Only CoT</h2>
-    
+    
     <div class="columns is-variable is-8 height-sync">
-      
+      
       <div class="column is-half left-stack">
                 <div class="box question-area">
           <p class="subtitle is-6 has-text-centered mb-2">Input Image & Visual-CoT Solution</p>
@@ -367,8 +339,8 @@
           </figure>
           <div id="questionText" class="question-text content">
             <p><strong>Task: Convex Hull (EG)</strong></p>
-            <p><strong>Question:</strong> Given 10 blue points, they form a blue convex hull. Given 10 green points, they form a green convex hull. How many red points fall in the overlapping portion of the blue and green convex hulls? Answer with only one digit. [cite: 312, 313, 314, 315]</p>
-            <p>When provided with the **Visual-CoT Image** (right), GPT-5 successfully identifies the overlapping region and counts the correct answer: 4. [cite: 343, 352]</p>
+            <p><strong>Question:</strong> Given 10 blue points, they form a blue convex hull. Given 10 green points, they form a green convex hull. How many red points fall in the overlapping portion of the blue and green convex hulls? [cite_start]Answer with only one digit. [cite: 312, 313, 314, 315]</p>
+[cite_start]            <p>When provided with the **Visual-CoT Image** (right), GPT-5 successfully identifies the overlapping region and counts the correct answer: 4. [cite: 343, 352]</p>
           </div>
         </div>
       </div>
@@ -382,9 +354,9 @@
 (3) The overlap (intersection) of the two hulls is therefore the part of the blue hull that is also inside the green hull...
 (4) Check each red point (20 of them) against that overlapping zone. ... After inspection, the following seven red points lie inside that edge (and are also within the green hull)...
 (5) Thus, **7** red points fall inside the region common to both the blue and green convex hulls.
-&lt;answer&gt;7&lt;/answer&gt; ❌ 
-              
-**Failure:** Purely textual reasoning fails to accurately delineate the overlapping geometric region, resorting to words like "imagine" and producing a vague, unreliable logic that results in the incorrect answer of 7. [cite: 349, 350, 327]
+&lt;answer&gt;7&lt;/answer&gt; ❌ 
+              
+[cite_start]**Failure:** Purely textual reasoning fails to accurately delineate the overlapping geometric region, resorting to words like "imagine" and producing a vague, unreliable logic that results in the incorrect answer of 7. [cite: 349, 350, 327]
 </pre>
         </div>
       </div>
@@ -442,7 +414,7 @@
       <div class="column is-8">
         <div class="content">
           <p>
-            Project Page maintained by Qinghao Ye (<a href="mailto:yeqinghao@bytedance.com">yeqinghao@bytedance.com</a>) and Huaxiu Yao (<a href="mailto:huaxiu@cs.unc.edu">huaxiu@cs.unc.edu</a>). [cite: 23]
+[cite_start]            Project Page maintained by Qinghao Ye (<a href="mailto:yeqinghao@bytedance.com">yeqinghao@bytedance.com</a>) and Huaxiu Yao (<a href="mailto:huaxiu@cs.unc.edu">huaxiu@cs.unc.edu</a>). [cite: 23]
           </p>
           <p>
             The website template is licensed under a <a rel="license"
