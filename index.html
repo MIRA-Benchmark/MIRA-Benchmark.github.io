@@ -285,12 +285,27 @@
     </span>
     <p style="margin: 0; color: #888888;">© 2025 MIRA Benchmark. All rights reserved.</p>
 </div>
+<div id="toast" style="
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 1000;
+">Link copied to clipboard!</div>
 <script>
+const toast = document.getElementById('toast');
 document.getElementById("share-link").addEventListener("click", function(e) {
     e.preventDefault();
     const url = "https://mira-benchmark.github.io/";
     navigator.clipboard.writeText(url).then(() => {
-        alert("Link copied to clipboard!");
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 2000); // 2秒后消失
     });
 });
 </script>
