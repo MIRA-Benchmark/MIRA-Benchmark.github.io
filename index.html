@@ -175,9 +175,20 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="content has-text-centered">
-            <img src="assets/fig1.jpg" alt="Reference to Figure 1 from MIRA paper" width="100%"/>
+            <img src="assets/fig2.jpg" alt="Reference to Figure 1 from MIRA paper" width="100%"/>
       <p> 
-        MIRA Exposes MLLM Limitations in Visual Reasoning. While leading multimodal large language models (MLLMs) such as GPT-5, o3, o4-mini, and Gemini 2.5 Pro demonstrate strong performance on established benchmarks like MMMU, MMMU Pro, MMStar, and RealWorldQA, they struggle significantly on the MIRA benchmark, with none surpassing a 20% accuracy rate** with direct inputs. This dramatic performance drop highlights MIRA's unique role in exposing the fundamental challenges these models face in complex reasoning tasks that require generating intermediate visual images. The left side illustrates a dice rolling task, showing how a human (who can "picture" the movement) correctly answers, while an MLLM struggles to reason through the problem using only pure text (Text-CoT), leading to an incorrect answer.
+        MIRA categorizes Visual-CoT reasoning tasks into two primary types: <strong>Static (Single-Step)</strong> and <strong>Dynamic (Multi-Step)</strong>, with representative examples from each category illustrated in the figure. The dataset includes 20 types of tasks, 546 input images with manually designed questions, and 936 manually constructed single-step and multi-step intermediate images.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered">
+            <img src="assets/fig1.jpg" alt="Reference to Figure 2 from MIRA paper" width="100%"/>
+      <p> 
+        <strong>MIRA Exposes MLLM Limitations in Visual Reasoning.</strong>strong> While leading MLLMs such as GPT-5, o3, o4-mini, and Gemini 2.5 Pro demonstrate strong performance on established benchmarks like MMMU, MMMU Pro, MMStar, and RealWorldQA, they struggle significantly on the MIRA benchmark, with none surpassing a 20% accuracy rate with direct inputs. This dramatic performance drop highlights MIRA's unique role in exposing the fundamental challenges these models face in complex reasoning tasks that require generating intermediate visual images. The left side illustrates a dice rolling task, showing how a human (who can "picture" the movement) correctly answers, while an MLLM struggles to reason through the problem using only pure text (Text-CoT), leading to an incorrect answer.
       </p>
     </div>
   </div>
